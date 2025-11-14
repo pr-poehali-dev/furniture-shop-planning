@@ -20,6 +20,7 @@ interface CartItem extends Product {
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const products: Product[] = [
     {
@@ -114,7 +115,47 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 bg-white border-b border-border">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-heading font-bold text-foreground">NORDIC</h1>
+          <div className="flex items-center gap-4">
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Icon name="Menu" size={24} />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-72">
+                <SheetHeader>
+                  <SheetTitle className="font-heading text-left">Меню</SheetTitle>
+                </SheetHeader>
+                <nav className="flex flex-col gap-4 mt-8">
+                  <a href="#" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                    Главная
+                  </a>
+                  <a href="#catalog" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                    Каталог
+                  </a>
+                  <a href="#" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                    О нас
+                  </a>
+                  <a href="#" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                    Доставка
+                  </a>
+                  <a href="#" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                    Контакты
+                  </a>
+                </nav>
+              </SheetContent>
+            </Sheet>
+            
+            <h1 className="text-2xl font-heading font-bold text-foreground">NORDIC</h1>
+          </div>
+          
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="#" className="text-sm hover:text-accent transition-colors">Главная</a>
+            <a href="#catalog" className="text-sm hover:text-accent transition-colors">Каталог</a>
+            <a href="#" className="text-sm hover:text-accent transition-colors">О нас</a>
+            <a href="#" className="text-sm hover:text-accent transition-colors">Доставка</a>
+            <a href="#" className="text-sm hover:text-accent transition-colors">Контакты</a>
+          </nav>
           
           <Sheet>
             <SheetTrigger asChild>
@@ -201,7 +242,7 @@ const Index = () => {
         </div>
       </header>
 
-      <section className="container mx-auto px-4 py-12">
+      <section id="catalog" className="container mx-auto px-4 py-12">
         <div className="max-w-3xl mx-auto text-center mb-12 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
             Скандинавская мебель для вашего дома
