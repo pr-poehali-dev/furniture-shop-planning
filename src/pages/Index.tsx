@@ -3,6 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { useToast } from '@/hooks/use-toast';
 import Icon from '@/components/ui/icon';
 
 interface Product {
@@ -21,6 +26,9 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+  const { toast } = useToast();
 
   const products: Product[] = [
     {
@@ -110,6 +118,19 @@ const Index = () => {
 
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Сообщение отправлено!",
+      description: "Мы свяжемся с вами в ближайшее время.",
+    });
+    setContactForm({ name: '', email: '', message: '' });
+  };
+
+  const handleCheckout = () => {
+    setIsCheckoutOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -230,7 +251,7 @@ const Index = () => {
                         <span>Итого:</span>
                         <span>{totalPrice.toLocaleString('ru-RU')} ₽</span>
                       </div>
-                      <Button className="w-full" size="lg">
+                      <Button className="w-full" size="lg" onClick={handleCheckout}>
                         Оформить заказ
                       </Button>
                     </div>
@@ -396,38 +417,77 @@ const Index = () => {
 
       <footer id="contacts" className="bg-primary text-primary-foreground mt-20 py-16">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-            <div>
-              <h3 className="font-heading font-bold text-xl mb-4">NORDIC</h3>
-              <p className="text-primary-foreground/80 mb-4">
-                Скандинавская мебель для вашего дома
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="font-heading font-semibold mb-4">Контакты</h3>
-              <div className="space-y-3 text-primary-foreground/80">
-                <div className="flex items-center gap-2">
-                  <Icon name="Phone" size={18} />
-                  <span>+7 (495) 123-45-67</span>
+          <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="font-heading font-bold text-xl mb-4">NORDIC</h3>
+                <p className="text-primary-foreground/80 mb-4">
+                  Скандинавская мебель для вашего дома
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="font-heading font-semibold mb-4">Режим работы</h3>
+                <div className="space-y-2 text-primary-foreground/80">
+                  <p>Пн-Пт: 10:00 - 20:00</p>
+                  <p>Сб-Вс: 11:00 - 19:00</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="Mail" size={18} />
-                  <span>hello@nordic.ru</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Icon name="MapPin" size={18} />
-                  <span>Москва, ул. Примерная, 1</span>
+              </div>
+              
+              <div className="md:col-span-2">
+                <h3 className="font-heading font-semibold mb-4">Контакты</h3>
+                <div className="space-y-3 text-primary-foreground/80">
+                  <div className="flex items-center gap-2">
+                    <Icon name="Phone" size={18} />
+                    <span>+7 (495) 123-45-67</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Icon name="Mail" size={18} />
+                    <span>hello@nordic.ru</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Icon name="MapPin" size={18} />
+                    <span>Москва, ул. Примерная, 1</span>
+                  </div>
                 </div>
               </div>
             </div>
             
             <div>
-              <h3 className="font-heading font-semibold mb-4">Режим работы</h3>
-              <div className="space-y-2 text-primary-foreground/80">
-                <p>Пн-Пт: 10:00 - 20:00</p>
-                <p>Сб-Вс: 11:00 - 19:00</p>
-              </div>
+              <h3 className="font-heading font-semibold mb-4">Свяжитесь с нами</h3>
+              <form onSubmit={handleContactSubmit} className="space-y-4">
+                <div>
+                  <Input
+                    placeholder="Ваше имя"
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                    required
+                    className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60"
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="email"
+                    placeholder="Email"
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                    required
+                    className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60"
+                  />
+                </div>
+                <div>
+                  <Textarea
+                    placeholder="Ваше сообщение"
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                    required
+                    className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 min-h-[100px]"
+                  />
+                </div>
+                <Button type="submit" variant="secondary" className="w-full">
+                  Отправить
+                </Button>
+              </form>
             </div>
           </div>
           
@@ -436,6 +496,115 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      
+      <Sheet open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
+        <SheetContent className="w-full sm:max-w-2xl overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle className="font-heading text-2xl">Оформление заказа</SheetTitle>
+          </SheetHeader>
+          
+          <div className="mt-8 space-y-8">
+            <div>
+              <h3 className="font-heading font-semibold text-lg mb-4">Ваш заказ</h3>
+              <div className="space-y-3">
+                {cart.map(item => (
+                  <div key={item.id} className="flex justify-between text-sm">
+                    <span>{item.name} × {item.quantity}</span>
+                    <span className="font-semibold">{(item.price * item.quantity).toLocaleString('ru-RU')} ₽</span>
+                  </div>
+                ))}
+                <div className="border-t pt-3 flex justify-between font-heading font-bold">
+                  <span>Итого:</span>
+                  <span>{totalPrice.toLocaleString('ru-RU')} ₽</span>
+                </div>
+              </div>
+            </div>
+            
+            <form className="space-y-6" onSubmit={(e) => {
+              e.preventDefault();
+              toast({
+                title: "Заказ оформлен!",
+                description: "Мы свяжемся с вами для подтверждения.",
+              });
+              setCart([]);
+              setIsCheckoutOpen(false);
+            }}>
+              <div>
+                <h3 className="font-heading font-semibold text-lg mb-4">Контактные данные</h3>
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="checkout-name">Имя *</Label>
+                    <Input id="checkout-name" required placeholder="Иван Иванов" />
+                  </div>
+                  <div>
+                    <Label htmlFor="checkout-phone">Телефон *</Label>
+                    <Input id="checkout-phone" type="tel" required placeholder="+7 (999) 123-45-67" />
+                  </div>
+                  <div>
+                    <Label htmlFor="checkout-email">Email *</Label>
+                    <Input id="checkout-email" type="email" required placeholder="example@mail.com" />
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h3 className="font-heading font-semibold text-lg mb-4">Доставка</h3>
+                <RadioGroup defaultValue="moscow" className="space-y-4">
+                  <div className="flex items-start space-x-3 p-4 border rounded-lg">
+                    <RadioGroupItem value="moscow" id="moscow" className="mt-1" />
+                    <Label htmlFor="moscow" className="flex-1 cursor-pointer">
+                      <div className="font-semibold mb-1">Доставка по Москве</div>
+                      <div className="text-sm text-muted-foreground">Бесплатно при заказе от 30 000 ₽</div>
+                      <div className="text-sm text-muted-foreground">Срок: 1-3 рабочих дня</div>
+                    </Label>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3 p-4 border rounded-lg">
+                    <RadioGroupItem value="russia" id="russia" className="mt-1" />
+                    <Label htmlFor="russia" className="flex-1 cursor-pointer">
+                      <div className="font-semibold mb-1">Доставка по России</div>
+                      <div className="text-sm text-muted-foreground">Транспортная компания</div>
+                      <div className="text-sm text-muted-foreground">Срок: 3-14 рабочих дней</div>
+                    </Label>
+                  </div>
+                  
+                  <div className="flex items-start space-x-3 p-4 border rounded-lg">
+                    <RadioGroupItem value="pickup" id="pickup" className="mt-1" />
+                    <Label htmlFor="pickup" className="flex-1 cursor-pointer">
+                      <div className="font-semibold mb-1">Самовывоз</div>
+                      <div className="text-sm text-muted-foreground">Москва, ул. Примерная, 1</div>
+                      <div className="text-sm text-muted-foreground">Бесплатно</div>
+                    </Label>
+                  </div>
+                </RadioGroup>
+                
+                <div className="mt-4">
+                  <Label htmlFor="address">Адрес доставки *</Label>
+                  <Textarea 
+                    id="address" 
+                    required 
+                    placeholder="Улица, дом, квартира"
+                    className="mt-2"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <Label htmlFor="comment">Комментарий к заказу</Label>
+                <Textarea 
+                  id="comment" 
+                  placeholder="Пожелания по доставке, время звонка и т.д."
+                  className="mt-2"
+                />
+              </div>
+              
+              <Button type="submit" className="w-full" size="lg">
+                Подтвердить заказ
+              </Button>
+            </form>
+          </div>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
