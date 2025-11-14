@@ -133,28 +133,28 @@ const Index = () => {
                   <a href="#catalog" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                     Каталог
                   </a>
-                  <a href="#" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <a href="#about" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                     О нас
                   </a>
-                  <a href="#" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <a href="#delivery" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                     Доставка
                   </a>
-                  <a href="#" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
+                  <a href="#contacts" className="text-lg hover:text-accent transition-colors" onClick={() => setIsMenuOpen(false)}>
                     Контакты
                   </a>
                 </nav>
               </SheetContent>
             </Sheet>
             
-            <h1 className="text-2xl font-heading font-bold text-foreground">NORDIC</h1>
+            <a href="#" className="text-2xl font-heading font-bold text-foreground hover:text-accent transition-colors">NORDIC</a>
           </div>
           
           <nav className="hidden md:flex items-center gap-8">
             <a href="#" className="text-sm hover:text-accent transition-colors">Главная</a>
             <a href="#catalog" className="text-sm hover:text-accent transition-colors">Каталог</a>
-            <a href="#" className="text-sm hover:text-accent transition-colors">О нас</a>
-            <a href="#" className="text-sm hover:text-accent transition-colors">Доставка</a>
-            <a href="#" className="text-sm hover:text-accent transition-colors">Контакты</a>
+            <a href="#about" className="text-sm hover:text-accent transition-colors">О нас</a>
+            <a href="#delivery" className="text-sm hover:text-accent transition-colors">Доставка</a>
+            <a href="#contacts" className="text-sm hover:text-accent transition-colors">Контакты</a>
           </nav>
           
           <Sheet>
@@ -242,10 +242,105 @@ const Index = () => {
         </div>
       </header>
 
+      <section id="about" className="bg-secondary py-20">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+            <div className="animate-fade-in">
+              <img
+                src="https://cdn.poehali.dev/projects/46ddac88-416a-43b8-b383-42029bd0bb0e/files/a5ce9da8-9ba8-4cde-a323-91dbbcb3fe46.jpg"
+                alt="О нас"
+                className="rounded-lg shadow-lg w-full"
+              />
+            </div>
+            <div className="animate-fade-in space-y-6">
+              <h2 className="text-4xl font-heading font-bold">О нас</h2>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                NORDIC — это больше, чем просто мебельный магазин. Мы создаём пространства для жизни, вдохновлённые скандинавской философией уюта и простоты.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                Каждый предмет в нашем каталоге выбран с заботой о качестве, функциональности и экологичности. Мы работаем только с проверенными производителями из Скандинавии и Европы.
+              </p>
+              <div className="grid grid-cols-2 gap-6 pt-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon name="Award" size={24} className="text-accent" />
+                    <h3 className="font-heading font-semibold">Качество</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Гарантия 5 лет на всю продукцию</p>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon name="Leaf" size={24} className="text-accent" />
+                    <h3 className="font-heading font-semibold">Экология</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Натуральные материалы</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="delivery" className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-heading font-bold text-center mb-12 animate-fade-in">Доставка</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="text-center p-6 animate-fade-in">
+                <div className="flex justify-center mb-4">
+                  <div className="h-16 w-16 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Icon name="Truck" size={32} className="text-accent" />
+                  </div>
+                </div>
+                <h3 className="font-heading font-semibold text-lg mb-3">По Москве</h3>
+                <p className="text-muted-foreground mb-2">Бесплатная доставка</p>
+                <p className="text-sm text-muted-foreground">При заказе от 30 000 ₽</p>
+              </Card>
+              
+              <Card className="text-center p-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <div className="flex justify-center mb-4">
+                  <div className="h-16 w-16 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Icon name="Package" size={32} className="text-accent" />
+                  </div>
+                </div>
+                <h3 className="font-heading font-semibold text-lg mb-3">По России</h3>
+                <p className="text-muted-foreground mb-2">Транспортная компания</p>
+                <p className="text-sm text-muted-foreground">Расчёт при оформлении</p>
+              </Card>
+              
+              <Card className="text-center p-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <div className="flex justify-center mb-4">
+                  <div className="h-16 w-16 rounded-full bg-accent/10 flex items-center justify-center">
+                    <Icon name="Home" size={32} className="text-accent" />
+                  </div>
+                </div>
+                <h3 className="font-heading font-semibold text-lg mb-3">Подъём и сборка</h3>
+                <p className="text-muted-foreground mb-2">Профессиональная команда</p>
+                <p className="text-sm text-muted-foreground">Доступно при оформлении</p>
+              </Card>
+            </div>
+            
+            <div className="mt-12 p-8 bg-secondary rounded-lg animate-fade-in">
+              <div className="flex items-start gap-4">
+                <Icon name="Clock" size={24} className="text-accent mt-1" />
+                <div>
+                  <h3 className="font-heading font-semibold text-lg mb-2">Время доставки</h3>
+                  <p className="text-muted-foreground">
+                    Доставка по Москве осуществляется в течение 1-3 рабочих дней. 
+                    По России — от 3 до 14 дней в зависимости от региона. 
+                    Мы свяжемся с вами для уточнения удобного времени.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="catalog" className="container mx-auto px-4 py-12">
         <div className="max-w-3xl mx-auto text-center mb-12 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-heading font-bold mb-4">
-            Скандинавская мебель для вашего дома
+            Каталог
           </h2>
           <p className="text-lg text-muted-foreground">
             Минимализм, функциональность и качество в каждой детали
@@ -299,9 +394,46 @@ const Index = () => {
         </div>
       </section>
 
-      <footer className="bg-secondary mt-20 py-12">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <p className="font-heading">© 2024 NORDIC. Скандинавская мебель</p>
+      <footer id="contacts" className="bg-primary text-primary-foreground mt-20 py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+            <div>
+              <h3 className="font-heading font-bold text-xl mb-4">NORDIC</h3>
+              <p className="text-primary-foreground/80 mb-4">
+                Скандинавская мебель для вашего дома
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-heading font-semibold mb-4">Контакты</h3>
+              <div className="space-y-3 text-primary-foreground/80">
+                <div className="flex items-center gap-2">
+                  <Icon name="Phone" size={18} />
+                  <span>+7 (495) 123-45-67</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="Mail" size={18} />
+                  <span>hello@nordic.ru</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icon name="MapPin" size={18} />
+                  <span>Москва, ул. Примерная, 1</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="font-heading font-semibold mb-4">Режим работы</h3>
+              <div className="space-y-2 text-primary-foreground/80">
+                <p>Пн-Пт: 10:00 - 20:00</p>
+                <p>Сб-Вс: 11:00 - 19:00</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-primary-foreground/20 mt-12 pt-8 text-center text-primary-foreground/60">
+            <p>© 2024 NORDIC. Все права защищены</p>
+          </div>
         </div>
       </footer>
     </div>
